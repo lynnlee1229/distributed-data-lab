@@ -1,0 +1,17 @@
+{
+  "hdfs": {
+    "version": "3.4.2",
+    "archive": "hadoop-3.4.2.tar.gz",
+    "sha512": "79a383e156022d6690da359120b25db8146452265d92a4e890d9ea78c2078a01b661daf78163ee9b4acef7106b01fd5c8d1a55f7ad284f88b31ab3f402ae3acf",
+    "java_major": 11
+  },
+  "database": {
+    "version": "24.1.24",
+    "sha256": {
+      "darwin-11.0-arm64": "2ccf6b7eb4198ca7ac9f106bbed66e34162a45d9975077ccb04974174544c01d",
+      "linux-amd64": "03dafef68bcb3640900a1a500c903f5f2409dbe9d0af686ed73cd6e8527355a0",
+      "linux-arm64": "648d8e6f264a76ebd5880b9ee2dae9c739ae50e3f8819596750a8fc9b66b170e"
+    },
+    "license_scope": "Limited Non-Production Use; upstream CockroachDB Software License; no binary redistribution"
+  }
+}
