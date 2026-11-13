@@ -8,7 +8,7 @@ files = {
         "sha256": hashlib.sha256(p.read_bytes()).hexdigest(),
         "bytes": p.stat().st_size,
     }
-    for p in (R / (n + ".json") for n in ["parquet", "hdfs", "database"])
+    for p in (R / (n + ".json") for n in ["parquet", "hdfs", "database", "iceberg"])
 }
 (R / "index.json").write_text(
     json.dumps(

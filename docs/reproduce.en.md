@@ -54,6 +54,24 @@ Change one variable at a time. Predict an invariant before timing. All baseline 
 
 A bind error means another process owns a required port. A runtime-download error leaves a resumable .part file. A failed assertion leaves local logs under build/ and publishes no new success claim. If HDFS cannot reach RF=3, inspect available targets; do not weaken the assertion to call an under-replicated cluster “repaired”. If a database schedule does not produce 40001, inspect returned reads and transaction mode rather than injecting a fake error.
 
-The CI workflow runs Parquet and native integration profiles in separate jobs and uploads generated result artifacts. Its results are independent from the committed laptop baseline. Course chapters 01, 04 and 06 are reading / reasoning; 02, 03 and 05 have executed profiles. There is no executed Iceberg, cloud, hotspot capacity or cross-machine benchmark.
+The CI workflow runs Parquet and native integration profiles in separate jobs and uploads generated result artifacts. Its results are independent from the committed laptop baseline. Course chapters 01 and 04 remain reading / reasoning; 02, 03, 05 and 06 have executed profiles. There is no cloud, hotspot capacity or cross-machine benchmark.
 
 HDFS child environments remove inherited Hadoop configuration variables, verify JDK 11, and use per-node PID directories / identities. This is required even for foreground daemons because the upstream shell can use PID files.
+
+## Optional local Iceberg profile
+
+```sh
+pip install -r requirements-iceberg.txt
+python lab.py iceberg
+python scripts/validate_iceberg.py results/iceberg.json
+python scripts/index_results.py
+python scripts/verify_resources.py
+```
+
+Fixed PyIceberg 0.10.0 and SQLAlchemy 2.0.44 use the same PyArrow 20.0.0 baseline. No JVM, Docker, cloud service, API key or network listener is required. Input is six enumerated synthetic rows plus a deliberately uncommitted valid Parquet row. The profile is tiny; it does not estimate capacity. `all` retains the original three-profile behavior; the optional profile is run separately.
+
+Every Iceberg run creates a unique build/iceberg directory, so rerunning never purges a previous table's history. The report's local_artifact_directory identifies its own catalog/warehouse. Raw metadata has local locations and stays ignored; only selected schema/spec/snapshot fields, file hashes, literal rowsets and relative synthetic references are exported. No snapshot expiration, table purge or file deletion is run. SQLite catalog behavior is development scope, not distributed-catalog safety.
+
+Check snapshots with 3/5/6 rows, field ID 2 before/after rename, mixed spec IDs 0/1, unchanged old file SHA256, the persisted catalog pointer and historical rowset hashes. The negative control must show id=999 in raw file enumeration but absent from Iceberg. A separate validator rejects corrupted evidence; the engine runner itself compares actual reads against literal rowset oracles.
+
+The resource inventory maps six original exercises to verified CMU/MIT lectures and official tutorials. `verify_resources.py` validates it offline; `--live` performs bounded public URL prefix reads. Reading public slides requires no course enrollment in our checks, but course registration, grades, credit and fees remain separate. Do not publish official course solutions. The 2026 retrieval-index extension is reading and a lineage discussion, not a model or RAG-quality experiment.

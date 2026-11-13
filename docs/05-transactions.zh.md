@@ -41,6 +41,24 @@ python lab.py database
 
 **一笔成功转账能证明节点崩溃时也原子吗？** 不能，本实验没有注入节点崩溃。**为什么副本之外还要查 Leaseholder？** 数据副本与服务职责不同。**重试错误等于保证失效吗？** 在这里，拒绝提交正是阻止非法可串行化历史的机制。
 
+## 大学课程导读与原创练习
+
+- [Massachusetts Institute of Technology 6.5830/6.5831 · Spring 2026 · Lecture 12 / 2026-03-19 · Optimistic Concurrency Control, Snapshot Isolation](https://dsg.csail.mit.edu/6.5830/lectures/lec12.pdf)
+- [Massachusetts Institute of Technology 6.5830/6.5831 · Spring 2026 · Lecture 15 / 2026-04-07 · Distributed Databases](https://dsg.csail.mit.edu/6.5830/lectures/lec15.pdf)
+- [Massachusetts Institute of Technology 6.5830/6.5831 · Spring 2026 · Lecture 16 / 2026-04-09 · Distributed Transactions](https://dsg.csail.mit.edu/6.5830/lectures/lec16.pdf)
+- [Carnegie Mellon University 15-445/645 · Fall 2025 · Lecture #20 · Multi-Version Concurrency Control](https://15445.courses.cs.cmu.edu/fall2025/slides/20-multiversioning.pdf)
+
+运行转账与过期总额 Write Skew，再基于新总额重试完整业务决策。
+
+```sh
+python scripts/bootstrap.py database
+python lab.py database
+```
+
+KV Put 到不同服务节点；转账总额 300，一条真实 40001，最终 220，第二次提款被拒绝。
+
+以上是原创 Lab 练习，不是大学课程作业答案。公开阅读不等于注册、学分或评分资格；可检索资源库列出先修与核验日期。
+
 ## 原始来源
 
 - [本地集群部署](https://www.cockroachlabs.com/docs/v24.1/start-a-local-cluster)

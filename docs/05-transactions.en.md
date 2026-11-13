@@ -41,6 +41,24 @@ Reverse which key each client updates. Keep the invariant checks. Replace the to
 
 **Does a single successful transfer prove atomicity under a node crash?** No; no crash was injected here. **Why inspect leaseholders as well as replicas?** Copies and serving responsibilities differ. **Is a retry error a broken guarantee?** Here it is the mechanism that prevents an invalid serializable history.
 
+## Guided university reading and original exercise
+
+- [Massachusetts Institute of Technology 6.5830/6.5831 · Spring 2026 · Lecture 12 / 2026-03-19 · Optimistic Concurrency Control, Snapshot Isolation](https://dsg.csail.mit.edu/6.5830/lectures/lec12.pdf)
+- [Massachusetts Institute of Technology 6.5830/6.5831 · Spring 2026 · Lecture 15 / 2026-04-07 · Distributed Databases](https://dsg.csail.mit.edu/6.5830/lectures/lec15.pdf)
+- [Massachusetts Institute of Technology 6.5830/6.5831 · Spring 2026 · Lecture 16 / 2026-04-09 · Distributed Transactions](https://dsg.csail.mit.edu/6.5830/lectures/lec16.pdf)
+- [Carnegie Mellon University 15-445/645 · Fall 2025 · Lecture #20 · Multi-Version Concurrency Control](https://15445.courses.cs.cmu.edu/fall2025/slides/20-multiversioning.pdf)
+
+Run the transfer and stale-total write-skew schedule, then retry the entire business decision against the fresh total.
+
+```sh
+python scripts/bootstrap.py database
+python lab.py database
+```
+
+KV Put trace reaches distinct serving nodes; transfer total=300; one real 40001; final total=220; the second withdrawal is declined.
+
+These are original Lab exercises, not the universities’ assignment solutions. Public reading access does not grant enrollment, credit or grading. See the searchable resource library for prerequisites and verification dates.
+
 ## Original sources
 
 - [Local cluster deployment](https://www.cockroachlabs.com/docs/v24.1/start-a-local-cluster)

@@ -37,6 +37,23 @@ The executable coverage begins in chapter 02. This chapter is a classification e
 
 **Can a valid Parquet file represent a half-published table?** Yes. Individual file validity does not identify the committed set of table files. **Is a Row Group an HDFS block?** No. One is a file-format grouping; the other is a storage allocation / replication unit. Their boundaries need not align.
 
+## Guided university reading and original exercise
+
+- [Carnegie Mellon University 15-445/645 · Fall 2025 · Lecture #03 · Database Storage I](https://15445.courses.cs.cmu.edu/fall2025/slides/03-storage1.pdf)
+- [Massachusetts Institute of Technology 6.5830/6.5831 · Spring 2026 · Lecture 4 / 2026-02-12 · Intro to DB Internals](https://dsg.csail.mit.edu/6.5830/lectures/lec4.pdf)
+- [Apache Parquet · File metadata and page headers · Parquet metadata](https://parquet.apache.org/docs/file-format/metadata/)
+
+Inspect the real footer, identify what it knows about rows/chunks, then explain why it cannot tell you a replica count or table commit.
+
+```sh
+python lab.py parquet
+python scripts/inspect_parquet.py build/parquet/sorted-4096-zstd.parquet
+```
+
+Total row-group rows agree with 131072; schema has four columns; storage/table authority is a reasoning question, not inferred from row-group count.
+
+These are original Lab exercises, not the universities’ assignment solutions. Public reading access does not grant enrollment, credit or grading. See the searchable resource library for prerequisites and verification dates.
+
 ## Original sources
 
 - [Parquet concepts](https://parquet.apache.org/docs/concepts/)

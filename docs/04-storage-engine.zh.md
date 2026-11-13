@@ -39,6 +39,24 @@ SHOW RANGES FROM TABLE accounts WITH DETAILS;
 
 **MVCC 会消除写冲突吗？** 不会。**加二级索引没有写代价吗？** 不是，可能增加键与协调工作。**Compaction 能马上删除所有旧版本吗？** 不能，活跃读者与保留规则可能仍需它们。**单靠范围切分能解决单热键吗？** 不能，该键流量仍然集中。
 
+## 大学课程导读与原创练习
+
+- [Carnegie Mellon University 15-445/645 · Fall 2025 · Lecture #05 · Database Storage II](https://15445.courses.cs.cmu.edu/fall2025/slides/05-storage2.pdf)
+- [Carnegie Mellon University 15-445/645 · Fall 2025 · Lecture #20 · Multi-Version Concurrency Control](https://15445.courses.cs.cmu.edu/fall2025/slides/20-multiversioning.pdf)
+- [Carnegie Mellon University 15-445/645 · Fall 2025 · Lecture #21 · Database Logging](https://15445.courses.cs.cmu.edu/fall2025/slides/21-logging.pdf)
+- [Massachusetts Institute of Technology 6.5830/6.5831 · Spring 2026 · Lecture 12 / 2026-03-19 · Optimistic Concurrency Control, Snapshot Isolation](https://dsg.csail.mit.edu/6.5830/lectures/lec12.pdf)
+
+阅读已执行计划中的主索引路径与版本/冲突调度，另列出验证 WAL 持久性或 LSM 合并所需证据。
+
+```sh
+python scripts/bootstrap.py database
+python lab.py database
+```
+
+计划标明 accounts_pkey；可串行化冲突不是 WAL fsync 或 Compaction 测量，后两者仍属阅读。
+
+以上是原创 Lab 练习，不是大学课程作业答案。公开阅读不等于注册、学分或评分资格；可检索资源库列出先修与核验日期。
+
 ## 原始来源
 
 - [CockroachDB 存储层](https://www.cockroachlabs.com/docs/v24.1/architecture/storage-layer)

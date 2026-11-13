@@ -2,7 +2,7 @@
 
 [English course](https://lynnlee1229.github.io/distributed-data-lab/en/) · [中文课程](https://lynnlee1229.github.io/distributed-data-lab/zh/) · [中文说明](README.zh-CN.md)
 
-Six original chapters organized by concepts and prerequisites: files / blocks / objects and metadata; Parquet layout; HDFS replication; WAL / LSM / MVCC and indexes; cross-range transactions; lakehouse snapshots and evolution. Chapters 02, 03 and 05 have real reproducible profiles. Chapters 01, 04 and 06 are reading / design exercises. No executed Iceberg or cloud claim is made.
+Six original chapters organized by concepts and prerequisites: files / blocks / objects and metadata; Parquet layout; HDFS replication; WAL / LSM / MVCC and indexes; cross-range transactions; lakehouse snapshots and evolution. Chapters 02, 03, 05 and 06 have real reproducible profiles. Chapters 01 and 04 remain reading / reasoning. Iceberg uses a local SQLite catalog and filesystem; no cloud or distributed-catalog claim is made.
 
 The browser Parquet inspector reads local header/footer slices, displays actual metadata and estimates candidate row groups for raw integer bounds. It never uploads a file. This is separate from saved PyArrow engine-read measurements. All public datasets are synthetic. No user documents, logs, credentials or private homepage source are included.
 
@@ -36,6 +36,7 @@ Open http://127.0.0.1:18916/distributed-data-lab/en/. Native runtimes are downlo
 | parquet | Five equal logical layouts; 45 equal-result queries; counted read spans, timing, footer candidates | Requested bytes are reader calls, not physical disk I/O; warm cache |
 | hdfs | Four DataNodes, RF=3, thirteen blocks; stop one node, verify digest, restore three live replicas on survivors | One NameNode; one host; no rack/HA or host-failure test |
 | database | Three database processes, distinct range leaseholders; cross-range transfer; real 40001 write-skew rejection | One host; no crash atomicity or production capacity benchmark |
+| iceberg | Real 3/5/6-row snapshots, stable field ID across rename, specs 0/1, old time-travel rowsets, valid uncommitted-file exclusion | Local SQLite catalog; no concurrency, cloud, delete-file compatibility or AI-quality benchmark |
 
 The HDFS experiment needs four initial nodes for RF=3 so three survivors can restore full redundancy. Only three initial nodes would be readable but unable to repair to three distinct live replicas after one stops. The database experiment verifies actual writes to distinct serving nodes in KV trace, not merely the number of processes. All raw logs and stores remain ignored and local; sanitized result fields are explicitly authored in each experiment.
 
@@ -46,3 +47,19 @@ All services bind to 127.0.0.1 and are unauthenticated teaching configurations. 
 Read [full setup and methods](docs/reproduce.en.md), [validation](VALIDATION.md), per-chapter tasks and self-check answers, and direct primary-source links. CI runs separate Linux jobs and retains generated evidence; those runs are not the laptop baseline. `scripts/build_site.py` exports a file allowlist and creates an independently usable ZIP; build directories, downloaded binaries, private environments and raw logs are excluded. Only this companion is public; the personal homepage source remains private.
 
 HDFS child environments remove inherited Hadoop configuration variables, verify JDK 11, and use per-node PID directories / identities. This is required even for foreground daemons because the upstream shell can use PID files.
+
+## Iceberg study loop and university readings
+
+```sh
+pip install -r requirements-iceberg.txt
+python lab.py iceberg
+python scripts/validate_iceberg.py results/iceberg.json
+python scripts/index_results.py
+python scripts/verify_resources.py
+```
+
+The optional profile uses PyIceberg 0.10.0, SQLAlchemy 2.0.44 and the core PyArrow 20.0.0. It needs no JVM, cloud or account. Each run creates an exclusive local directory and retains its history; no snapshot expiration or file deletion is performed. `all` keeps the original three profiles for compatibility; run `iceberg` separately after its optional installation.
+
+The experiment compares literal independent rowset oracles with actual Iceberg scans, metadata JSON, physical Parquet field IDs and file hashes. A valid uncommitted id=999 file is the negative control against directory listing. Current and pinned scans have explicitly recorded schema selection under this reader version. Raw metadata stays local; public results contain only allowlisted relative references.
+
+`data/resources.json` is a searchable, verified inventory of CMU 15-445/645 Fall 2025 and MIT 6.5830/6.5831 Spring 2026 readings, official storage tutorials and the 2003 GFS classic. All six course units map to specific lectures/readings and original runnable exercises. The public slides are distinct from enrollment, credit, grading and fees. This companion does not contain university assignment solutions. The 2026 vector-database connection concerns corpus version lineage, with no LLM calls or retrieval-quality claims. See the bilingual reading library online and exact per-chapter learning tasks.

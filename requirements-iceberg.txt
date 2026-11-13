@@ -1,0 +1,3 @@
+-r requirements.txt
+pyiceberg[sql-sqlite]==0.10.0
+SQLAlchemy==2.0.44

@@ -41,6 +41,24 @@ Count blocks from file length before reading fsck. Change RF to 2 with four node
 
 **Does a matching digest prove redundancy is restored?** No; inspect live placement too. **Does a second NameNode replica store the file payload?** Namespace availability and DataNode replicas are separate. **Are these four processes four independent host failures?** No.
 
+## Guided university reading and original exercise
+
+- [Massachusetts Institute of Technology 6.5830/6.5831 · Spring 2026 · Lecture 15 / 2026-04-07 · Distributed Databases](https://dsg.csail.mit.edu/6.5830/lectures/lec15.pdf)
+- [Carnegie Mellon University 15-445/645 · Fall 2025 · Lecture #23 · Distributed Database Systems I](https://15445.courses.cs.cmu.edu/fall2025/slides/23-distributed1.pdf)
+- [Apache Hadoop · NameNode and DataNodes; Data Replication; Robustness · HDFS Architecture 3.4.2](https://hadoop.apache.org/docs/r3.4.2/hadoop-project-dist/hadoop-hdfs/HdfsDesign.html)
+- [Google Research / SOSP 2003 · 2003 classic; architecture and fault-tolerance sections · The Google File System](https://research.google/pubs/the-google-file-system/)
+
+Count blocks, stop one DataNode and verify reading and restored redundancy separately.
+
+```sh
+python scripts/bootstrap.py hdfs
+python lab.py hdfs
+```
+
+Thirteen blocks; RF=3 on four starting nodes; after one stops, three live replicas per block and zero pending/under-replicated counters.
+
+These are original Lab exercises, not the universities’ assignment solutions. Public reading access does not grant enrollment, credit or grading. See the searchable resource library for prerequisites and verification dates.
+
 ## Original sources
 
 - [HDFS 3.4.2 architecture](https://hadoop.apache.org/docs/r3.4.2/hadoop-project-dist/hadoop-hdfs/HdfsDesign.html)

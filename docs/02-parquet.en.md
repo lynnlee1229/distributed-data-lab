@@ -37,6 +37,22 @@ Change the predicate to fit inside one sorted group, then straddle a boundary. P
 
 **Can a projected query still read the filter column?** Yes; a predicate needs its values unless metadata resolves it. **Does compression remove the need for pruning?** No; skipping a chunk and decompressing it solve different costs. **Can missing statistics prove rejection?** No. Keep the group as a candidate.
 
+## Guided university reading and original exercise
+
+- [Carnegie Mellon University 15-445/645 · Fall 2025 · Lecture #06 · Storage Models & Compression](https://15445.courses.cs.cmu.edu/fall2025/slides/06-storage3.pdf)
+- [Massachusetts Institute of Technology 6.5830/6.5831 · Spring 2026 · Lecture 10 / 2026-03-10 · OLAP & Column Stores](https://dsg.csail.mit.edu/6.5830/lectures/lec10.pdf)
+- [Apache Parquet · File metadata and page headers · Parquet metadata](https://parquet.apache.org/docs/file-format/metadata/)
+
+Predict candidate groups before comparing real read spans; change one predicate boundary in your own copy.
+
+```sh
+python lab.py parquet
+```
+
+All 45 queries return the same source-oracle rows; sorted 4096 layout retains 2/32 candidates while shuffled retains 32/32.
+
+These are original Lab exercises, not the universities’ assignment solutions. Public reading access does not grant enrollment, credit or grading. See the searchable resource library for prerequisites and verification dates.
+
 ## Original sources
 
 - [Parquet column chunks](https://parquet.apache.org/docs/file-format/data-pages/columnchunks/)

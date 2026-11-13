@@ -51,6 +51,24 @@ HDFS RPC/UI 绑定 127.0.0.1:18920/18921；DataNode 数据端口 19000–19003�
 
 绑定失败说明端口已被其他进程占用；下载失败保留可续传 .part 文件。断言失败把本地日志留在 build/，不发布新的成功结论。HDFS 无法达到 RF=3 时先检查可用目标，不能放宽断言把副本不足称为已恢复。数据库没出现 40001 时应检查返回给客户端的读取与事务模式，不人为注入错误冒充冲突。
 
-CI 在独立 Job 中运行 Parquet 与本机原生集成 Profile，上传生成结果，与已提交的笔记本基线分开。01、04、06 为阅读/推理；02、03、05 有真实实操。没有执行 Iceberg、云服务、热点容量或跨机器扩展性基准。
+CI 在独立 Job 中运行 Parquet 与本机原生集成 Profile，上传生成结果，与已提交的笔记本基线分开。01、04 为阅读/推理；02、03、05、06 有真实实操。没有执行云服务、热点容量或跨机器扩展性基准。
 
 HDFS 子进程会清除继承的 Hadoop 配置变量、核验 JDK 11，并使用各节点独占的 PID 目录与标识；即使前台运行，上游 shell 也可能使用 PID 文件。
+
+## 可选本地 Iceberg Profile
+
+```sh
+pip install -r requirements-iceberg.txt
+python lab.py iceberg
+python scripts/validate_iceberg.py results/iceberg.json
+python scripts/index_results.py
+python scripts/verify_resources.py
+```
+
+固定 PyIceberg 0.10.0、SQLAlchemy 2.0.44，并复用 PyArrow 20.0.0。不需要 JVM、Docker、云、API Key 或监听端口。输入为六条列明的合成记录及一条故意不提交的合法 Parquet 行，不作容量估计。`all` 保留原三 Profile 行为，可选 Profile 单独启动。
+
+每次 Iceberg 运行创建独占 build/iceberg 目录，不清除旧表历史；报告 local_artifact_directory 指向本次 Catalog/数据目录。原始元数据含本机位置，只留在忽略目录；公开白名单只含 Schema/分区/快照字段、文件哈希、预期与实际行及合成相对引用。不执行快照过期、表清除或文件删除，SQLite 目录属于开发范围。
+
+核验 3/5/6 行快照、改名前后字段 ID 2、规范 0/1、旧文件 SHA256、重新打开目录后的指针及历史行集合哈希。反例必须让目录读取包含 999、Iceberg 排除 999。引擎运行器对比独立字面量 oracle，另外的验证器拒绝被改坏的证据。
+
+资源库把六个原创练习映射到已核验的 CMU/MIT 讲义与官方教程。`verify_resources.py` 离线检查结构，`--live` 有界读取官方 URL 开头。可公开阅读与课程注册、评分、学分、费用分开，不发布官方作业解答。2026 检索索引延伸是阅读与数据血缘讨论，不是模型或 RAG 质量实验。

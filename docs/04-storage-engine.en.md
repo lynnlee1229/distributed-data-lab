@@ -39,6 +39,24 @@ Sketch an index entry for a primary key and a hypothetical secondary index on ba
 
 **Does MVCC eliminate write conflicts?** No. **Does adding a secondary index have zero write cost?** No; extra keys and coordination may be required. **Can compaction delete every older version immediately?** No; active readers and retention rules may need them. **Can a range split alone solve one hot key?** No; the key's traffic remains concentrated.
 
+## Guided university reading and original exercise
+
+- [Carnegie Mellon University 15-445/645 · Fall 2025 · Lecture #05 · Database Storage II](https://15445.courses.cs.cmu.edu/fall2025/slides/05-storage2.pdf)
+- [Carnegie Mellon University 15-445/645 · Fall 2025 · Lecture #20 · Multi-Version Concurrency Control](https://15445.courses.cs.cmu.edu/fall2025/slides/20-multiversioning.pdf)
+- [Carnegie Mellon University 15-445/645 · Fall 2025 · Lecture #21 · Database Logging](https://15445.courses.cs.cmu.edu/fall2025/slides/21-logging.pdf)
+- [Massachusetts Institute of Technology 6.5830/6.5831 · Spring 2026 · Lecture 12 / 2026-03-19 · Optimistic Concurrency Control, Snapshot Isolation](https://dsg.csail.mit.edu/6.5830/lectures/lec12.pdf)
+
+Read the primary-index path in the executed plan and the version/conflict schedule. Separately list what would be needed to test WAL durability or LSM compaction.
+
+```sh
+python scripts/bootstrap.py database
+python lab.py database
+```
+
+Plan identifies accounts_pkey; observed serializable conflict is not a WAL fsync or compaction measurement. Those remain reading-only.
+
+These are original Lab exercises, not the universities’ assignment solutions. Public reading access does not grant enrollment, credit or grading. See the searchable resource library for prerequisites and verification dates.
+
 ## Original sources
 
 - [CockroachDB storage layer](https://www.cockroachlabs.com/docs/v24.1/architecture/storage-layer)

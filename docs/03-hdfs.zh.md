@@ -41,6 +41,24 @@ python lab.py hdfs
 
 **摘要相同就证明副本恢复吗？** 不能，还要检查活副本位置。**增加 NameNode 就等于增加文件数据副本吗？** 不是，命名空间可用性与 DataNode 数据复制是两个问题。**四进程是四个独立宿主故障域吗？** 不是。
 
+## 大学课程导读与原创练习
+
+- [Massachusetts Institute of Technology 6.5830/6.5831 · Spring 2026 · Lecture 15 / 2026-04-07 · Distributed Databases](https://dsg.csail.mit.edu/6.5830/lectures/lec15.pdf)
+- [Carnegie Mellon University 15-445/645 · Fall 2025 · Lecture #23 · Distributed Database Systems I](https://15445.courses.cs.cmu.edu/fall2025/slides/23-distributed1.pdf)
+- [Apache Hadoop · NameNode and DataNodes; Data Replication; Robustness · HDFS Architecture 3.4.2](https://hadoop.apache.org/docs/r3.4.2/hadoop-project-dist/hadoop-hdfs/HdfsDesign.html)
+- [Google Research / SOSP 2003 · 2003 classic; architecture and fault-tolerance sections · The Google File System](https://research.google/pubs/the-google-file-system/)
+
+计算块数，停止一个 DataNode，分别验证可读与冗余恢复。
+
+```sh
+python scripts/bootstrap.py hdfs
+python lab.py hdfs
+```
+
+十三块，四节点起步 RF=3；停一节点后每块三个活副本，待恢复/副本不足计数为零。
+
+以上是原创 Lab 练习，不是大学课程作业答案。公开阅读不等于注册、学分或评分资格；可检索资源库列出先修与核验日期。
+
 ## 原始来源
 
 - [HDFS 3.4.2 架构](https://hadoop.apache.org/docs/r3.4.2/hadoop-project-dist/hadoop-hdfs/HdfsDesign.html)

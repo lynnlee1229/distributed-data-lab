@@ -37,6 +37,22 @@ python scripts/inspect_parquet.py build/parquet/sorted-4096-zstd.parquet
 
 **只选择少数列，仍可能读取过滤列吗？** 会，除非元数据已经解决条件，否则仍需列值。**有压缩就不用裁剪吗？** 不是，跳过块与解压块解决不同成本。**没有统计能否证明排除？** 不能，必须保留为候选。
 
+## 大学课程导读与原创练习
+
+- [Carnegie Mellon University 15-445/645 · Fall 2025 · Lecture #06 · Storage Models & Compression](https://15445.courses.cs.cmu.edu/fall2025/slides/06-storage3.pdf)
+- [Massachusetts Institute of Technology 6.5830/6.5831 · Spring 2026 · Lecture 10 / 2026-03-10 · OLAP & Column Stores](https://dsg.csail.mit.edu/6.5830/lectures/lec10.pdf)
+- [Apache Parquet · File metadata and page headers · Parquet metadata](https://parquet.apache.org/docs/file-format/metadata/)
+
+先预测候选组，再比较真实读取区间；在自己的副本中修改一个过滤边界。
+
+```sh
+python lab.py parquet
+```
+
+45 次查询均与源数据 oracle 相同；4096 有序布局候选 2/32，打乱为 32/32。
+
+以上是原创 Lab 练习，不是大学课程作业答案。公开阅读不等于注册、学分或评分资格；可检索资源库列出先修与核验日期。
+
 ## 原始来源
 
 - [Parquet 列块](https://parquet.apache.org/docs/file-format/data-pages/columnchunks/)

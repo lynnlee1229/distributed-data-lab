@@ -5,7 +5,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 p = argparse.ArgumentParser()
-p.add_argument("profile", choices=["parquet", "hdfs", "database", "all"])
+p.add_argument("profile", choices=["parquet", "hdfs", "database", "iceberg", "all"])
 p.add_argument("--smoke", action="store_true")
 a = p.parse_args()
 lock = Path(os.environ.get("DDS_RESOURCE_LOCK", ROOT / "build/runtime.lock"))
@@ -36,6 +36,7 @@ try:
             "parquet": "parquet_layout.py",
             "hdfs": "hdfs_recovery.py",
             "database": "distributed_transactions.py",
+            "iceberg": "iceberg_snapshots.py",
         }[profile]
         args = [sys.executable, str(ROOT / "experiments" / script)]
         if a.smoke and profile == "parquet":

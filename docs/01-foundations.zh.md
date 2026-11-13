@@ -37,6 +37,23 @@
 
 **一个合法 Parquet 文件可能属于发布了一半的表吗？** 可以。单文件合法，不代表已经确定表提交所包含的完整文件集合。**Row Group 是 HDFS Block 吗？** 不是。前者是格式分组，后者是存储分配与复制单位，两者边界不一定对齐。
 
+## 大学课程导读与原创练习
+
+- [Carnegie Mellon University 15-445/645 · Fall 2025 · Lecture #03 · Database Storage I](https://15445.courses.cs.cmu.edu/fall2025/slides/03-storage1.pdf)
+- [Massachusetts Institute of Technology 6.5830/6.5831 · Spring 2026 · Lecture 4 / 2026-02-12 · Intro to DB Internals](https://dsg.csail.mit.edu/6.5830/lectures/lec4.pdf)
+- [Apache Parquet · File metadata and page headers · Parquet metadata](https://parquet.apache.org/docs/file-format/metadata/)
+
+检查真实 Footer，找出行/列块信息，解释它为什么不知道副本数与表提交。
+
+```sh
+python lab.py parquet
+python scripts/inspect_parquet.py build/parquet/sorted-4096-zstd.parquet
+```
+
+组行数合计为 131072、Schema 四列；存储/表权威是推理题，不能从组数推导副本数。
+
+以上是原创 Lab 练习，不是大学课程作业答案。公开阅读不等于注册、学分或评分资格；可检索资源库列出先修与核验日期。
+
 ## 原始来源
 
 - [Parquet 概念](https://parquet.apache.org/docs/concepts/)

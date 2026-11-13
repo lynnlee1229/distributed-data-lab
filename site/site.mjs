@@ -1,3 +1,4 @@
+import { renderIceberg } from "./study.mjs";
 import { inspectParquet, candidateGroups } from "./parquet.mjs";
 const zh = document.documentElement.lang === "zh";
 const tr = (en, cn) => (zh ? cn : en);
@@ -336,6 +337,8 @@ if ($("evidence-output")) {
             r,
           ),
         );
+      } else if (name === "iceberg") {
+        renderIceberg(output, r);
       } else {
         output.append(
           node(
